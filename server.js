@@ -23,6 +23,11 @@ async function startApolloServer(typeDefs, resolvers){
     const app = express();
     await server.start();
     server.applyMiddleware({app, path: '/graphql'});
+
+    app.get('/', (req, res) => {
+      res.send('Server is running');
+    });
+    
     
     app.listen({ port: 4000 }, () => {
         console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
