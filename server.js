@@ -22,11 +22,15 @@ async function startApolloServer(typeDefs, resolvers){
     const server = new ApolloServer({typeDefs, resolvers})
     const app = express();
     await server.start();
+
+    app.get('/', (_, res) => {
+      res.redirect('/graphql');
+    });
+
+    
     server.applyMiddleware({app, path: '/graphql'});
 
-    app.get('/', (req, res) => {
-      res.send('Server is running');
-    });
+    
     
     
     app.listen({ port: 4000 }, () => {
